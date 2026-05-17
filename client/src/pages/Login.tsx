@@ -56,7 +56,13 @@ const Login = () => {
           <div>
             <div className="flex justify-between items-center mb-2">
               <label className="block font-label-sm text-[10px] tracking-widest uppercase text-on-surface-variant">PASSWORD</label>
-              <a href="#" className="font-label-sm text-[10px] tracking-widest uppercase text-primary hover:underline">Forgot Password?</a>
+              <button
+                type="button"
+                onClick={() => toast('Password recovery system not configured', { icon: '🔑' })}
+                className="font-label-sm text-[10px] tracking-widest uppercase text-primary hover:underline focus:outline-none bg-transparent border-0 p-0 cursor-pointer"
+              >
+                Forgot Password?
+              </button>
             </div>
             <div className="relative">
               <span className="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[18px]">lock</span>

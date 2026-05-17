@@ -2,6 +2,7 @@ import express, { Request, Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import authRoutes from './routes/auth.routes';
 import leadRoutes from './routes/lead.routes';
 import adminRoutes from './routes/admin.routes';
@@ -25,6 +26,16 @@ app.get('/health', (req: Request, res: Response) => {
   res.status(200).json({ status: 'OK', message: 'Server is running' });
 });
 
+// Serve static assets in production (MERN single-folder serving)
+if (process.env.NODE_ENV === 'production') {
+  const clientBuildPath = path.join(__dirname, '..', '..', 'client', 'build');
+  app.use(express.static(clientBuildPath));
+
+  app.get('*', (req: Request, res: Response) => {
+    res.sendFile(path.resolve(clientBuildPath, 'index.html'));
+  });
+}
+
 // Error handling middleware
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error(err.stack);
@@ -34,15 +45,23 @@ app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   });
 });
 
-// Database connection
+// Database connection (Top-level non-blocking connection for serverless)
 mongoose
   .connect(process.env.MONGODB_URI!)
   .then(() => {
     console.log('Connected to MongoDB Atlas');
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
   })
   .catch((error) => {
     console.error('MongoDB connection error:', error);
   });
+
+// Only listen locally (not in serverless/Vercel functions environment)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+// Export app for Vercel Serverless Function entry point
+export { app };
+export default app;

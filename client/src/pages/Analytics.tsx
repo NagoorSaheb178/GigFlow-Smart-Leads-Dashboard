@@ -47,14 +47,6 @@ const Analytics = () => {
         const conversion = total > 0 ? ((qualifiedCount / total) * 100).toFixed(1) : '0.0';
         const engagement = total > 0 ? (((total - lostCount) / total) * 100).toFixed(0) : '0';
         
-        // Leads in the last 7 days
-        const last7DaysCount = leads.filter(l => {
-          const creationDate = new Date(l.createdAt);
-          const sevenDaysAgo = new Date();
-          sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-          return creationDate > sevenDaysAgo;
-        }).length;
-
         setHeroStats({
           conversion: `${conversion}%`,
           leadsCount: `${total}`,

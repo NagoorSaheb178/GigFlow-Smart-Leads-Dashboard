@@ -3,10 +3,8 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import toast from 'react-hot-toast';
 import { 
-  User as UserIcon, 
   Mail, 
   Shield, 
-  Calendar, 
   Camera,
   Edit2,
   Lock,
