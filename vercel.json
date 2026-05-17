@@ -1,4 +1,5 @@
 {
+  "outputDirectory": "client/build",
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -9,36 +10,8 @@
       "destination": "/api/index.js"
     },
     {
-      "source": "/static/(.*)",
-      "destination": "/client/build/static/$1"
-    },
-    {
-      "source": "/manifest.json",
-      "destination": "/client/build/manifest.json"
-    },
-    {
-      "source": "/favicon.ico",
-      "destination": "/client/build/favicon.ico"
-    },
-    {
-      "source": "/logo192.png",
-      "destination": "/client/build/logo192.png"
-    },
-    {
-      "source": "/logo512.png",
-      "destination": "/client/build/logo512.png"
-    },
-    {
-      "source": "/asset-manifest.json",
-      "destination": "/client/build/asset-manifest.json"
-    },
-    {
-      "source": "/robots.txt",
-      "destination": "/client/build/robots.txt"
-    },
-    {
       "source": "/(.*)",
-      "destination": "/client/build/index.html"
+      "destination": "/index.html"
     }
   ]
 }
