@@ -1,0 +1,20 @@
+services:
+  backend:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGODB_URI=mongodb+srv://gig:Nagoor@cluster0.px9ktef.mongodb.net/smart-leads?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_super_secret_jwt_key_12345
+      - NODE_ENV=production
+    restart: always
+
+  frontend:
+    build: ./client
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000/api
+    restart: always
