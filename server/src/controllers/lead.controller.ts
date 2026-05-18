@@ -140,7 +140,41 @@ export const exportLeads = async (req: AuthRequest, res: Response) => {
       query.userId = req.user.userId;
     }
     const leads = await Lead.find(query).sort({ createdAt: -1 });
-    res.json(leads);
+
+    // Define CSV headers
+    const headers = ['Lead ID', 'Name', 'Email', 'Status', 'Source', 'Created At'];
+
+    // Helper to format/escape cell value for standard CSV
+    const formatCSVCell = (val: any) => {
+      if (val === null || val === undefined) return '';
+      let str = typeof val === 'object' ? String(val) : String(val);
+      // Double quotes must be escaped by doubling them
+      str = str.replace(/"/g, '""');
+      // Wrap in double quotes if there are commas, double quotes, or newlines
+      if (str.includes(',') || str.includes('"') || str.includes('\n') || str.includes('\r')) {
+        return `"${str}"`;
+      }
+      return str;
+    };
+
+    // Construct the rows
+    const rows = [
+      headers.join(','),
+      ...leads.map(lead => [
+        lead._id.toString(),
+        lead.name,
+        lead.email,
+        lead.status,
+        lead.source,
+        lead.createdAt ? new Date(lead.createdAt).toISOString() : ''
+      ].map(formatCSVCell).join(','))
+    ];
+
+    const csvContent = rows.join('\r\n');
+
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename=leads.csv');
+    return res.status(200).send(csvContent);
   } catch (error: any) {
     res.status(500).json({ message: 'Failed to export leads' });
   }
