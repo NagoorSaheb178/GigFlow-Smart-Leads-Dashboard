@@ -1,115 +1,109 @@
-# GigFlow – Smart Leads Dashboard
+# 🚀 GigFlow – Smart Leads Dashboard
 
-A full-stack Lead Management Dashboard built with the MERN stack (MongoDB, Express, React, Node.js) and TypeScript.
+A state-of-the-art, high-performance **MERN Lead Management & CRM Dashboard** engineered with React, Express, MongoDB, Node.js, and strictly typed **TypeScript**.
 
-## Features
+The workspace is organized into a highly optimized, industry-standard **Monorepo layout**, routing all production assets statically through a single Express port and natively integrating with **Vercel Serverless Functions**.
 
-- **Authentication System**: Secure JWT-based auth with password hashing (bcrypt).
-- **Leads Management**: Full CRUD operations for managing business leads.
-- **Advanced Filtering**: Filter by status, source, and debounced search by name/email.
-- **Backend Pagination**: Efficient data fetching with 10 records per page.
-- **Role-Based Access Control (RBAC)**: 
-  - **Admin**: Full access (CRUD + Export + Delete).
-  - **Sales User**: Create and Update access.
-- **CSV Export**: Export all leads data to CSV (Admin only).
-- **Responsive UI**: Premium, modern design with TailwindCSS.
-- **Dark Mode**: Support for light and dark themes.
-- **Dockerized**: Ready for containerized deployment.
+---
 
-## Tech Stack
+## ✨ Features
 
-- **Frontend**: React.js, TypeScript, TailwindCSS, Axios, Lucide React, Framer Motion.
-- **Backend**: Node.js, Express.js, TypeScript, MongoDB, Mongoose, JWT, Zod.
-- **Dev Tools**: Docker, concurrently, ts-node-dev.
+### 👤 User Management & Role-Based Access Control (RBAC)
+- **Role Isolation**: 
+  - **`Admin`**: Full CRUD operations + Bulk CSV Export + Member directory ledger control.
+  - **`Sales User`**: Dedicated leads pipeline (Create & Update status), blocked from administrative user panels.
+- **Multi-Tenant Scoping**: Dynamic database query scoping isolates lead statistics per sales account. Fresh sign-ups start with clean, zeroed analytics cards!
 
-## Setup Instructions
+### 📊 Real-Time Dynamic Analytics
+- **Live KPIs**: Conversion Rate calculation, growth trajectory markers, and attribution channel ratios are calculated in real-time straight from MongoDB.
+- **Visual Charts**: Rich interactive graphs mapping growth timelines and channel allocations.
 
-### Prerequisites
+### 💼 Leads Management
+- **Full CRUD Flow**: Seamless lead registration, status switching, and detailing panels.
+- **Advanced Filtering**: Live, client-side dynamic search and status/source filters.
+- **Administrative Utilities**: Instant bulk-export capabilities straight to CSV.
 
-- Node.js (v18+)
-- MongoDB Atlas account (URL provided in assignment)
-- Docker (optional)
+### 🎨 Premium UI/UX Design
+- **Harmonious Dark Theme**: Sleek dark mode styling featuring visual micro-animations and cohesive structural layouts.
+- **Mobile Responsive**: Dynamically adapting structural grids, allowing sales tracking on any size viewport.
 
-### Local Development
+---
 
-1. **Clone the repository**:
-   ```bash
-   git clone <repo-url>
-   cd "GigFlow – Smart Leads Dashboard"
-   ```
-
-2. **Install Root Dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Install Client Dependencies**:
-   ```bash
-   cd client
-   npm install
-   cd ..
-   ```
-
-4. **Environment Variables**:
-   Create a `.env` file in the root directory:
-   ```env
-   PORT=5000
-   MONGODB_URI=mongodb+srv://gig:Nagoor@cluster0.px9ktef.mongodb.net/smart-leads?retryWrites=true&w=majority&appName=Cluster0
-   JWT_SECRET=your_super_secret_jwt_key_12345
-   NODE_ENV=development
-   ```
-
-5. **Run the application**:
-   ```bash
-   npm run dev
-   ```
-   This will start both the backend (port 5000) and the frontend (port 3000) concurrently.
-
-### Using Docker
-
-1. **Build and run**:
-   ```bash
-   docker-compose up --build
-   ```
-   Access the frontend at `http://localhost:3000` and API at `http://localhost:5000`.
-
-## API Documentation
-
-### Auth
-- `POST /api/auth/register`: Create new user
-- `POST /api/auth/login`: Authenticate user
-
-### Leads
-- `GET /api/leads`: List leads (supports filters & pagination)
-- `GET /api/leads/:id`: Get single lead
-- `POST /api/leads`: Create lead
-- `PUT /api/leads/:id`: Update lead
-- `DELETE /api/leads/:id`: Delete lead (Admin only)
-- `GET /api/leads/export`: Export all leads (Admin only)
-
-## Project Structure
+## 🛠️ Project Structure (Clean Monorepo)
 
 ```
-├── client/              # Frontend (React + TS)
+GigFlow - Smart Leads Dashboard/
+├── client/                 <-- [FRONTEND] Pure React, TS, TailwindCSS, & Recharts
 │   ├── src/
-│   │   ├── components/  # Reusable UI components
-│   │   ├── context/     # Auth State
-│   │   ├── hooks/       # Custom hooks (DarkMode, etc)
-│   │   ├── pages/       # Dashboard, Login, Register
-│   │   └── services/    # API calls
-├── src/                 # Backend (Node + TS)
-│   ├── controllers/     # Route logic
-│   ├── models/          # Mongoose schemas
-│   ├── routes/          # API endpoints
-│   ├── middleware/      # Auth & RBAC
-│   └── index.ts         # Entry point
-├── Dockerfile           # Backend Docker config
-├── docker-compose.yml   # Multi-container config
-└── package.json         # Scripts to run everything
+│   ├── public/
+│   └── package.json
+├── server/                 <-- [BACKEND] Pure Express & MongoDB
+│   ├── src/
+│   │   ├── controllers/    # API query scoping & business logic
+│   │   ├── middleware/     # JWT Auth verification & RBAC gates
+│   │   ├── models/         # Mongoose validation schemas
+│   │   └── routes/         # Router declarations
+│   └── tsconfig.json
+├── api/                    <-- [VERCEL] Production gateway serverless entry point
+├── package.json            <-- [ROOT ORCHESTRATOR] Coordinates both workspaces
+└── vercel.json             <-- [VERCEL GATEWAY] Zero-config serverless mapping
 ```
 
-## Submission Details
+---
 
-- **Candidate**: [Your Name]
-- **Target Role**: Full Stack Intern
-- **Project**: Smart Leads Dashboard
+## 🚀 Quick Setup & Installation
+
+### 1. Install Dependencies (One Command)
+You no longer need to navigate folders manually to install packages. Run this single command in the project root:
+```bash
+npm run install:all
+```
+This automatically installs all package dependencies for the root orchestrator, the backend server, and the frontend client simultaneously.
+
+### 2. Configure Environment Variables
+Create a `.env` file in the **project root** directory:
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+JWT_SECRET=your_cryptographically_secure_256bit_hex_token
+NODE_ENV=development
+```
+
+### 3. Run Locally in Development
+To boot both the Express backend server and the React dev environment concurrently, run:
+```bash
+npm run dev
+```
+* React Frontend will run on: `http://localhost:3000`
+* Express Backend API will run on: `http://localhost:5000`
+
+---
+
+## ☁️ Single-Port Production Deployment (Vercel)
+
+This monorepo is fully configured for **Vercel's Modern Zero-Config Pipeline**.
+
+1. When deployed, Vercel triggers `npm run build` at the root, which compiles the backend server into `server/dist/` and compiles the React application into `client/build/`.
+2. The `api/index.js` gateway mounts the compiled Express serverless function natively.
+3. The `vercel.json` router serves the React application statically from `/` and maps all `/api/*` endpoints to the serverless function.
+
+---
+
+## 🔌 API Reference Endpoints
+
+### 🔑 Authentication (`/api/auth`)
+* `POST /api/auth/register` - Create a new administrator or sales account.
+* `POST /api/auth/login` - Authenticate credentials and receive a secure JWT token.
+
+### 📁 Leads Tracking (`/api/leads`)
+* `GET /api/leads` - Fetch leads list (supports active filters, search, and pagination).
+* `GET /api/leads/:id` - Fetch comprehensive single lead record details.
+* `POST /api/leads` - Register a new lead.
+* `PUT /api/leads/:id` - Update existing lead parameters/statuses.
+* `DELETE /api/leads/:id` - Remove lead record (restricted to **Admins**).
+* `GET /api/leads/export` - Export lead ledger data directly to a CSV document (restricted to **Admins**).
+
+### 👥 Personnel Management (`/api/admin`)
+* `GET /api/admin/users` - Fetch full user directory (restricted to **Admins**).
+* `POST /api/admin/users` - Register a new onboarded employee (restricted to **Admins**).
+* `DELETE /api/admin/users/:id` - Revoke employee account access (restricted to **Admins**).
