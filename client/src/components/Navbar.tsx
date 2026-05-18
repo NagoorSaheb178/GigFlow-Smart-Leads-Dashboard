@@ -39,7 +39,7 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
         </h1>
       </div>
       
-      <div className="flex items-center gap-2 lg:gap-6">
+      <div className="flex items-center gap-1.5 sm:gap-4 lg:gap-6">
         
         {/* Search Bar */}
         <div className="hidden md:flex items-center bg-surface border border-outline-variant px-4 py-1.5 focus-within:border-primary transition-colors">
@@ -51,27 +51,27 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-0.5 sm:gap-2">
           {/* Theme Toggle */}
           <button 
             onClick={toggleDarkMode}
-            className="p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center"
+            className="p-1.5 sm:p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center"
             title="Toggle Theme"
           >
-            <span className="material-symbols-outlined">{isDark ? 'light_mode' : 'dark_mode'}</span>
+            <span className="material-symbols-outlined text-[20px] sm:text-[24px]">{isDark ? 'light_mode' : 'dark_mode'}</span>
           </button>
           
           {/* Notification Icon */}
-          <button className="p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center relative">
-            <span className="material-symbols-outlined">notifications</span>
-            <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-error rounded-full"></span>
+          <button className="p-1.5 sm:p-2 text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center relative">
+            <span className="material-symbols-outlined text-[20px] sm:text-[24px]">notifications</span>
+            <span className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 w-2 h-2 bg-error rounded-full"></span>
           </button>
         </div>
         
         {/* Profile Dropdown */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           {user && (
-            <span className={`px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase border ${
+            <span className={`hidden sm:inline-block px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase border ${
               user.role === UserRole.ADMIN 
                 ? 'border-primary text-primary bg-primary/5' 
                 : 'border-outline text-on-surface-variant bg-surface-container-low'
@@ -82,16 +82,16 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
           <div className="relative">
             <button 
               onClick={() => setShowDropdown(!showDropdown)}
-              className="flex items-center gap-2 hover:bg-surface-container-lowest p-1 pr-2 transition-colors border border-transparent hover:border-outline-variant"
+              className="flex items-center gap-1 hover:bg-surface-container-lowest p-1 sm:pr-2 transition-colors border border-transparent hover:border-outline-variant"
             >
               <div className="w-8 h-8 bg-primary flex items-center justify-center text-xs font-bold text-on-primary">
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
-              <span className="material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
+              <span className="hidden sm:inline-block material-symbols-outlined text-[18px] text-on-surface-variant">expand_more</span>
             </button>
 
             {showDropdown && (
-              <div className="absolute right-0 top-full mt-1 w-48 bg-surface border border-outline-variant shadow-lg py-2 z-50">
+              <div className="absolute right-0 top-full mt-1 w-48 bg-surface border border-outline-variant shadow-lg py-2 z-50 animate-dropdown">
                 <div className="px-4 py-2 border-b border-outline-variant mb-2">
                   <div className="flex items-center justify-between gap-2 mb-1">
                     <p className="font-body-md text-on-surface font-bold truncate">{user?.name}</p>
@@ -105,28 +105,28 @@ const Navbar: React.FC<NavbarProps> = ({ onMenuClick }) => {
                   </div>
                   <p className="font-label-sm text-[10px] tracking-widest text-on-surface-variant uppercase truncate">{user?.email}</p>
                 </div>
-              <button 
-                onClick={() => {
-                  setShowDropdown(false);
-                  navigate('/settings');
-                }}
-                className="w-full text-left px-4 py-2 font-label-sm text-[10px] tracking-widest uppercase text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2"
-              >
-                <span className="material-symbols-outlined text-[16px]">settings</span>
-                Profile & Settings
-              </button>
-              <button 
-                onClick={() => {
-                  setShowDropdown(false);
-                  logout();
-                }}
-                className="w-full text-left px-4 py-2 font-label-sm text-[10px] tracking-widest uppercase text-error hover:bg-error/10 transition-colors flex items-center gap-2 mt-1"
-              >
-                <span className="material-symbols-outlined text-[16px]">logout</span>
-                Logout
-              </button>
-            </div>
-          )}
+                <button 
+                  onClick={() => {
+                    setShowDropdown(false);
+                    navigate('/settings');
+                  }}
+                  className="w-full text-left px-4 py-2 font-label-sm text-[10px] tracking-widest uppercase text-on-surface hover:bg-surface-container-low transition-colors flex items-center gap-2"
+                >
+                  <span className="material-symbols-outlined text-[16px]">settings</span>
+                  Profile & Settings
+                </button>
+                <button 
+                  onClick={() => {
+                    setShowDropdown(false);
+                    logout();
+                  }}
+                  className="w-full text-left px-4 py-2 font-label-sm text-[10px] tracking-widest uppercase text-error hover:bg-error/10 transition-colors flex items-center gap-2 mt-1"
+                >
+                  <span className="material-symbols-outlined text-[16px]">logout</span>
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
